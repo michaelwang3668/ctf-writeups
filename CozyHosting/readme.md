@@ -8,7 +8,7 @@ nmap scan, pretty sure the other ports are from other HTB users on the box:
 
 ![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/3c220e8e-c0ad-446c-bd4f-7e484984af03)
 
-ffuf output:
+ffuf output (couldn't find actuator unless i used rockyou.txt so i got a hint lmao):
 
 ![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/3329ad23-5e99-4207-beb1-4985a709fbac)
 
@@ -34,6 +34,8 @@ Get the shell:
 
 ![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/13b568f2-7910-4308-959d-e73b052331d5)
 
+## Privesc
+
 Host a python server on the target machine to grab the jar file:
 
 ![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/3fd9324f-91e9-4817-8892-21ef23d333c7)
@@ -46,7 +48,6 @@ Going to BOOT-INF/classes/application.properties, we see postgresql creds:
 On our shell in the target machine, connect to postgresql and get stored credentials and crack them:
 
 ![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/6ed7ae7e-f756-42a5-94d2-3c776aac1d36)
-
 ![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/ff555de4-cb4f-4e44-b021-bca97a986764)
 
 ssh into john and see we can run ssh as root:
@@ -57,3 +58,5 @@ gtfobin to privesc:
 - https://gtfobins.github.io/gtfobins/ssh/
 - ![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/10801dc0-48d6-4bfc-b001-5b8530ddfd94)
 
+## What I learned
+${IFS} to insert spaces in bash, postgresql commands
