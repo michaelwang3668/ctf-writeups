@@ -58,4 +58,5 @@ Looks like we can authenticate with WINRM:
 ![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/c335d65d-237f-4c9c-b203-3b35e7da0184)
 
 
-
+## Sources
+https://medium.com/@depradip_8731/authority-hackthebox-47b95ebd2af
