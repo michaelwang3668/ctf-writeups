@@ -57,6 +57,57 @@ Looks like we can authenticate with WINRM:
 
 ![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/c335d65d-237f-4c9c-b203-3b35e7da0184)
 
+## Privesc
+Uploading winpeas.exe:
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/44b3e65d-fcb8-4f39-bd56-a670664793fe)
+
+Running winpeas, we see that it could be vulnerable to KrbRelayUp:
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/6c866724-5e6e-435b-a1fd-a0db186d3bd7)
+
+Reading up on it, we see that we could possibly create computers in the domain:
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/a3b3013b-24de-40ef-a3ff-6917e10e732b)
+
+Couldn't get it to work, but there is a privesc tool similar in the sense that it adds computers to the domain is impacket addcomputer.py, which just requires that MachineAccountQuota > 0.
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/5c9295fc-0c67-47eb-9a97-aef2bf9dfed7)
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/fcf233aa-ac01-4b79-9e35-a68ee907bb35)
+
+Requesting certificate for our new computer:
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/dc4c52c1-8192-453a-a98c-681080a06b37)
+
+This one cert has a vulnerability field allowing client authentication, we probably want this one:
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/93e3c5ba-1256-49c2-bc73-77cf6551283a)
+
+Request the cert:
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/d797242c-8079-4b88-b4d1-e0194e06fac2)
+
+Use this cert to authenticate as administrator:
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/53e749b9-4e4b-4b04-a6ca-e215482e2279)
+
+While impersonating administrator@authority.htb, create a user and add it to "Domain Admins" group. (looks like password has to be a certain complexity):
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/20a4b92f-b47e-4c92-96dd-2ac78c020f53)
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/d0a5447d-78ce-4bff-ade9-1fab4b1e52f0)
+
+Finally rooted:
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/94d23ebc-1379-4f2a-8a30-3c18d962bc9e)
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/25654f9f-33a3-4363-8ed9-5da632595f31)
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/72edd539-34ae-4ff6-9b49-cf16c29289ba)
+
+## What I learned
+Ansible Vault Cracking, configuring Ansible ldap server, Active Directory Certificate Services (AD CS) Privesc, KrbRelayUp/impacket addcomputer.py
 
 ## Sources
-https://medium.com/@depradip_8731/authority-hackthebox-47b95ebd2af
+- https://medium.com/@depradip_8731/authority-hackthebox-47b95ebd2af
+- https://github.com/ShorSec/KrbRelayUp
+- https://tools.thehacker.recipes/impacket/examples/addcomputer.py
+- https://github.com/ly4k/Certipy
