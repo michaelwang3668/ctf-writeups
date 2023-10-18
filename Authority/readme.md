@@ -104,10 +104,8 @@ Finally rooted:
 ![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/72edd539-34ae-4ff6-9b49-cf16c29289ba)
 
 ## What I learned
-Ansible Vault Cracking, configuring Ansible ldap server, Active Directory Certificate Services (AD CS) Privesc, KrbRelayUp/impacket addcomputer.py
+Ansible Vault Cracking, configuring Ansible LDAP server, KrbRelayUp/impacket addcomputer.py, Active Directory Certificate Services (AD CS) Privesc
 
 ## Sources
 - https://medium.com/@depradip_8731/authority-hackthebox-47b95ebd2af
 - https://github.com/ShorSec/KrbRelayUp
-- https://tools.thehacker.recipes/impacket/examples/addcomputer.py
-- https://github.com/ly4k/Certipy
