@@ -1,3 +1,5 @@
+# Not including the days with copy paste solutions
+
 ## Day 2
 
 ![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/4c531c44-e8db-4bd0-9386-69eaf47d95a1)
