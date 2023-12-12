@@ -12,3 +12,17 @@
 Instead of using their wfuzz wordlist, I tried writing my own payload with hydra:
 
 ``` hydra -L usernames.txt  -P passwords.txt 10.10.229.119 http-post-form "/login.php:username=^USER^&password=^PASS^:Please enter the correct credentials" -V -f ```
+
+## Day 6
+
+Gold payload:
+```AAAAAAAAAAAAXXXX```
+
+Star payload:
+```AAAAAAAAAAAAAAAAAAAAAAAAAAAAd```
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/bd55a709-e224-4462-9b88-402839baf887)
+
+The offset to the gold is 12 bytes, the offset to the inventory is 28 bytes. We know the id of the star is "d" because of the shop.
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/681ab864-920c-4e48-af7b-90865cba8af2)
