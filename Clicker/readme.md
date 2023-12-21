@@ -88,4 +88,5 @@ Exploit to give bash an SUID bit and get root:
 ![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/5591564a-e3db-4930-818e-f307f2f5120f)
 
 ## What I learned
-CRLF (Carriage Return Line Feed) Bypass, perl_startup privesc
+ - CRLF (Carriage Return Line Feed) Bypass
+ - perl_startup privesc
