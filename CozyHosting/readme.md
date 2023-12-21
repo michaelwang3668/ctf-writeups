@@ -59,4 +59,5 @@ gtfobin to privesc:
 - ![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/10801dc0-48d6-4bfc-b001-5b8530ddfd94)
 
 ## What I learned
-${IFS} to insert spaces in bash, postgresql commands
+ - ${IFS} to insert spaces in bash
+ - postgresql commands
