@@ -53,9 +53,25 @@ Running linpeas:
 
 ![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/65067cd0-e53d-48ed-a585-2c255c481891)
 
+Running a kernel exploit, we get root and see drwilliams hash and crack it:
+
+https://github.com/g1vi/CVE-2023-2640-CVE-2023-32629?source=post_page-----887fd3d6fee9
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/2d420d5d-1704-481d-bfab-0bf84d2fa696)
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/30618fb2-4551-46be-9a76-98fb51bd3cff)
+
+Logging into the webmail server we saw, there is something about Ghostscript which leads to this CVE:
+
+![image](https://github.com/michaelwang3668/ctf-writeups/assets/75542248/08755689-b598-4c6c-9cc1-41082847aef1)
+
+https://github.com/jakabakos/CVE-2023-36664-Ghostscript-command-injection
+
+
 
 
 
 ## What I Learned
 Folder perms != file perms, even if you can't access the directory, you may be able to access a file in the directory
 .phar extension
+Ghostscript CVE
